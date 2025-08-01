@@ -1,9 +1,10 @@
 class Solution {
     public boolean isPalindrome(int x) {
         String s = String.valueOf(x);
-        for(int i = 0; i < s.length(); i++) {
-            if( s.charAt(i) != s.charAt(s.length() - i - 1) ) return false;
+        int i = 0;
+        while(i < s.length() && s.charAt(i) == s.charAt(s.length() - i - 1) ) {
+            i++;
         }
-        return true;
+        return i == s.length();
     }
 }
