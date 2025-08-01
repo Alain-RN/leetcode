@@ -3,8 +3,8 @@ class Solution {
         int j = 0;
         for(int i = 0; i < nums.length; i++) {
             
-            while(j < nums.length) {
-                if( j != i && ( nums[j] + nums[i] ) == target ) {
+            while(j < nums.length && j != i ) {
+                if( ( nums[j] + nums[i] ) == target ) {
                     return new int[]{i, j};
                 }
                 j++;
