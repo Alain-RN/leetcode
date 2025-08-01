@@ -14,7 +14,7 @@ class Solution {
                 if( strSet.substring(strSet.indexOf(s.charAt(i)) + 1 ) == "" ) {
                     strSet = "" + s.charAt(i);
                 } else {
-                    strSet = strSet.substring(strSet.indexOf(s.charAt(i)) + 1 );
+                    strSet = strSet.substring(strSet.indexOf(s.charAt(i)) + 1 ) + s.charAt(i);
                 }
             }
             
