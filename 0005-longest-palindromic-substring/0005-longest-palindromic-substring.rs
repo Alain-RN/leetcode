@@ -1,22 +1,39 @@
 impl Solution {
     pub fn longest_palindrome(s: String) -> String {
-        let input: String = s;
-        if input == input.chars().rev().collect::<String>() {
-            input
-        } else {
-            let chars: Vec<(usize, char)> = input.char_indices().collect();
-            let mut sub_pal = String::from(chars[0].1);
-            for start in 0..chars.len() {
-                for end in start+1..=chars.len() {
-                    let i = chars[start].0;
-                    let j = if end < chars.len() { chars[end].0 } else { input.len() };
-                    let substring = &input[i..j];
-                    if substring.chars().eq(substring.chars().rev()) && substring.len() > sub_pal.len() {
-                        sub_pal = substring.to_string();
+        let chars: Vec<char> = s.chars().collect();
+        let n = chars.len();
+
+        if n == 0 {
+            return "".to_string();
+        }
+
+        let mut dp = vec![vec![false; n]; n];
+        let mut start = 0;
+        let mut max_len = 1;
+
+        for i in 0..n {
+            dp[i][i] = true; // un seul caractère
+        }
+
+        for len in 2..=n {
+            for i in 0..=n - len {
+                let j = i + len - 1;
+
+                if chars[i] == chars[j] {
+                    if len == 2 {
+                        dp[i][j] = true; // deux mêmes caractères
+                    } else {
+                        dp[i][j] = dp[i + 1][j - 1]; // plus long palindrome interne
+                    }
+
+                    if dp[i][j] && len > max_len {
+                        start = i;
+                        max_len = len;
                     }
                 }
             }
-            sub_pal
         }
+
+        chars[start..start + max_len].iter().collect()
     }
 }
