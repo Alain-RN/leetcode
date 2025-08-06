@@ -7,19 +7,15 @@ impl Solution {
         let mut etage = 0;
         let mut m = true;
         for c in s.chars() {
-            v[etage] = format!("{}{}", v[etage], c);
+            v[etage].push(c);
             if m {
                 etage += 1;
             } else {
                 etage -= 1;
             }
 
-            if etage == 0 {
-                m = true;
-            }
-
-            if etage == (num_rows - 1) as usize {
-                m = false;
+            if etage == 0 || etage == (num_rows - 1) as usize {
+                m = !m;
             }
         }
         v.join("")
