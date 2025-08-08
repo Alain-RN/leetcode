@@ -1,38 +1,24 @@
 impl Solution {
-    pub fn int_to_roman(num: i32) -> String {
-        let mut num = num;
-        let mut l: usize = 0;
-        let mut rom: Vec<String> = Vec::new();
+    pub fn int_to_roman(mut num: i32) -> String {
+        let symbols = [
+            ("M", 1000), ("CM", 900), ("D", 500), ("CD", 400),
+            ("C", 100),  ("XC", 90),  ("L", 50),  ("XL", 40),
+            ("X", 10),   ("IX", 9),   ("V", 5),   ("IV", 4),
+            ("I", 1),
+        ];
 
-        let r_val: Vec<char> = vec!['I', 'V', 'X', 'L', 'C', 'D', 'M'];
+        let mut result = String::with_capacity(20);
 
-        while num > 0 {
-            let mut last = num % 10;
-            let mut s = String::new();
-
-            if last == 9 {
-                s.push(r_val[l]);
-                s.push(r_val[l + 2]);
-            } else if last >= 5 {
-                s.push(r_val[l + 1]);
-                for _ in 0..(last - 5) {
-                    s.push(r_val[l]);
-                }
-            } else if last == 4 {
-                s.push(r_val[l]);
-                s.push(r_val[l + 1]);
-            } else {
-                for _ in 0..last {
-                    s.push(r_val[l]);
-                }
+        for &(sym, val) in symbols.iter() {
+            while num >= val {
+                result.push_str(sym);
+                num -= val;
             }
-
-            rom.push(s);
-            num /= 10;
-            l += 2;
+            if num == 0 {
+                break;
+            }
         }
 
-        rom.reverse();
-        rom.join("")
+        result
     }
 }
